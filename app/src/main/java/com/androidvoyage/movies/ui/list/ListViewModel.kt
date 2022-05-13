@@ -1,11 +1,13 @@
 package com.androidvoyage.movies.ui.list
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import com.androidvoyage.movies.data.api.ApiHelper
 import com.androidvoyage.movies.data.api.RetrofitBuilder
 import com.androidvoyage.movies.data.repository.MovieRepository
 import com.androidvoyage.movies.utils.Resource
+import com.androidvoyage.movies.utils.Status
 import kotlinx.coroutines.Dispatchers
 
 
@@ -17,6 +19,8 @@ import kotlinx.coroutines.Dispatchers
 class ListViewModel : ViewModel() {
 
     val movieRepository = MovieRepository(ApiHelper(RetrofitBuilder.apiService))
+
+    val errorMessage = MutableLiveData("")
 
     fun getMovieList() = liveData(Dispatchers.IO) {
         emit(Resource.loading(data = null))

@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.androidvoyage.movies.RootActivity
 import com.androidvoyage.movies.databinding.ListFragmentBinding
 import com.androidvoyage.movies.ui.detail.DetailViewModel
 import com.androidvoyage.movies.utils.Status
@@ -38,31 +39,43 @@ class ListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = ListFragmentBinding.inflate(inflater, container, false)
+        binding.vm = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
         setObservers()
         return binding.root
     }
 
     private fun setObservers() {
+
+        binding.rcvMovies.adapter = MovieListAdapter(MovieListAdapter.MovieItemClickListener {
+            it?.let {
+                (requireActivity() as RootActivity).getNavController()
+                    .navigate(ListFragmentDirections.actionListFragmentToDetailFragment(it))
+            }
+        })
+
+
         viewModel.getMovieList().observe(viewLifecycleOwner, Observer {
             it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
-//                        recyclerView.visibility = View.VISIBLE
-//                        progressBar.visibility = View.GONE
-                        resource.data?.let { movieList ->
-
-                            Log.d("RootActivity -> List", "setupObservers: $movieList")
-
+                        resource.data?.let { response ->
+                            Log.d("RootActivity -> List", "SUCCESS: $response")
+                            (binding.rcvMovies.adapter as MovieListAdapter).submitList(response.results)
+                            if(response.results.isEmpty()){
+                                viewModel.errorMessage.postValue("No Data Found.")
+                            }else{
+                                viewModel.errorMessage.postValue("")
+                            }
                         }
                     }
                     Status.ERROR -> {
-//                        recyclerView.visibility = View.VISIBLE
-//                        progressBar.visibility = View.GONE
-                        Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG).show()
+                        Log.d("RootActivity -> List", "ERROR: ")
+                        viewModel.errorMessage.postValue(resource.message)
                     }
                     Status.LOADING -> {
-//                        progressBar.visibility = View.VISIBLE
-//                        recyclerView.visibility = View.GONE
+                        Log.d("RootActivity -> List", "LOADING:")
+                        viewModel.errorMessage.postValue("Loading...")
                     }
                 }
             }
