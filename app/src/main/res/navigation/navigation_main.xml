@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_main"
+    app:startDestination="@id/splashFragment">
+
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.androidvoyage.movies.ui.splash.SplashFragment"
+        tools:layout="@layout/splash_fragment"
+        android:label="SplashFragment" >
+        <action
+            android:id="@+id/action_splashFragment_to_listFragment"
+            app:destination="@id/listFragment"
+            app:popUpTo="@id/listFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/listFragment"
+        android:name="com.androidvoyage.movies.ui.list.ListFragment"
+        tools:layout="@layout/list_fragment"
+        android:label="ListFragment" >
+        <action
+            android:id="@+id/action_listFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.androidvoyage.movies.ui.detail.DetailFragment"
+        tools:layout="@layout/detail_fragment"
+        android:label="DetailFragment" >
+        <argument
+            android:name="movie"
+            app:argType="com.androidvoyage.movies.data.model.MovieItem" />
+    </fragment>
+</navigation>
