@@ -35,9 +35,9 @@ class ListViewModel : ViewModel() {
     }
 
     private fun getMovieList() {
-        errorMessage.postValue("Loading...")
-        try {
-            CoroutineScope(Dispatchers.Default).launch {
+        CoroutineScope(Dispatchers.Default).launch {
+            errorMessage.postValue("Loading...")
+            try {
                 val response = movieRepository.getMovieList(1)
                 listMovies.postValue(response.results)
                 if (response.results.isEmpty()) {
@@ -45,9 +45,9 @@ class ListViewModel : ViewModel() {
                 } else {
                     errorMessage.postValue("")
                 }
+            } catch (exception: Exception) {
+                errorMessage.postValue(exception.message ?: "Error Occurred!")
             }
-        } catch (exception: Exception) {
-            errorMessage.postValue(exception.message ?: "Error Occurred!")
         }
     }
 
