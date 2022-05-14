@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.androidvoyage.movies.databinding.DetailFragmentBinding
 import com.androidvoyage.movies.databinding.ListFragmentBinding
 
 
@@ -27,13 +28,13 @@ class DetailFragment : Fragment() {
         ViewModelProvider(this).get(DetailViewModel::class.java)
     }
 
-    private lateinit var binding: ListFragmentBinding
+    private lateinit var binding: DetailFragmentBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = ListFragmentBinding.inflate(inflater, container, false)
+        binding = DetailFragmentBinding.inflate(inflater, container, false)
         setObservers()
         return binding.root
     }

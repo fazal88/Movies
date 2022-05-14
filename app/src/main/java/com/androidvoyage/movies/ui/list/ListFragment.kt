@@ -66,9 +66,7 @@ class ListFragment : Fragment() {
         }
         viewModel.errorMessage.observe(viewLifecycleOwner) {
             it?.let {
-                if (it != "Loading...") {
-                    binding.swipeMovies.isRefreshing = false
-                }
+                binding.swipeMovies.isRefreshing = it.isNotEmpty()
             }
         }
         binding.swipeMovies.setOnRefreshListener {
