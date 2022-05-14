@@ -2,9 +2,6 @@ package com.androidvoyage.movies
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
-import androidx.recyclerview.widget.RecyclerView
-import com.androidvoyage.movies.data.model.MovieItem
-import com.androidvoyage.movies.ui.list.MovieListAdapter
 import com.bumptech.glide.Glide
 
 /**

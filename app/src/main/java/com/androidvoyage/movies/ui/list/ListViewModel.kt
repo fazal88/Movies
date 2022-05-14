@@ -23,6 +23,7 @@ class ListViewModel : ViewModel() {
     val errorMessage = MutableLiveData("")
     val listMovies = MutableLiveData<List<MovieItem>>()
     val clickedMovie = MutableLiveData<MovieItem?>()
+    var pageNo = 1
 
     val adapter = MovieListAdapter(MovieListAdapter.MovieItemClickListener {
         it?.let {
@@ -34,11 +35,12 @@ class ListViewModel : ViewModel() {
         getMovieList()
     }
 
-    private fun getMovieList() {
+    fun getMovieList(page : Int = pageNo++) {
+        pageNo = page
         CoroutineScope(Dispatchers.Default).launch {
             errorMessage.postValue("Loading...")
             try {
-                val response = movieRepository.getMovieList(1)
+                val response = movieRepository.getMovieList(page)
                 listMovies.postValue(response.results)
                 if (response.results.isEmpty()) {
                     errorMessage.postValue("No Data Found.")

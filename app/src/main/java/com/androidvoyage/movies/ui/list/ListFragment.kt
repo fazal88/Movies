@@ -55,6 +55,17 @@ class ListFragment : Fragment() {
                 viewModel.resetClickedMovie()
             }
         }
+        viewModel.errorMessage.observe(viewLifecycleOwner) {
+            it?.let {
+                if (it != "Loading...") {
+                    binding.swipeMovies.isRefreshing = false
+                }
+            }
+        }
+        binding.swipeMovies.setOnRefreshListener {
+            viewModel.listMovies.postValue(ArrayList())
+            viewModel.getMovieList(1)
+        }
     }
 
 }
