@@ -102,6 +102,7 @@
                         app:cardBackgroundColor="@color/purple_200"
                         app:cardCornerRadius="8dp"
                         app:cardElevation="0dp"
+                        android:transitionName="MOVIE_POSTER"
                         app:layout_constraintDimensionRatio="2:3"
                         app:layout_constraintEnd_toEndOf="@id/guid_vert_center"
                         app:layout_constraintStart_toStartOf="parent"
@@ -236,7 +237,7 @@
                         app:layout_constraintTop_toTopOf="@+id/tv_tagline"
                         app:layout_constraintBottom_toBottomOf="@+id/tv_tagline"/>
 
-                    <!--<View
+                    <View
                         setInVisible="@{!vm.isLoading()}"
                         android:background="#d3d3d3"
                         android:layout_width="0dp"
@@ -244,7 +245,7 @@
                         app:layout_constraintStart_toStartOf="@+id/cardView"
                         app:layout_constraintEnd_toEndOf="@+id/cardView"
                         app:layout_constraintTop_toTopOf="@+id/cardView"
-                        app:layout_constraintBottom_toBottomOf="@+id/cardView"/>-->
+                        app:layout_constraintBottom_toBottomOf="@+id/cardView"/>
 
                     <View
                         setInVisible="@{!vm.isLoading()}"

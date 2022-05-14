@@ -8,6 +8,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.androidvoyage.movies.data.model.MovieItem
+import com.androidvoyage.movies.ui.list.MovieListAdapter
 import com.bumptech.glide.Glide
 import kotlinx.coroutines.delay
 import kotlin.math.roundToInt
@@ -29,6 +31,7 @@ fun ImageView.setMoviePoster(item: String?) {
         e.printStackTrace()
     }
 }
+
 @BindingAdapter("setLikeVote")
 fun TextView.setLikeVote(item: Float?) {
     try {
@@ -63,6 +66,17 @@ fun View.setInVisible(isInvisible: Boolean?) {
     try {
         isInvisible?.let {
             visibility = if(it) View.INVISIBLE else View.VISIBLE
+        }
+    } catch (e: Exception) {
+        e.printStackTrace()
+    }
+}
+
+@BindingAdapter(value = ["clickItem", "clickListener"], requireAll = true)
+fun View.clickElement(clickItem: MovieItem?,clickListener : MovieListAdapter.MovieItemClickListener) {
+    try {
+        onClickWithAnimation {
+            clickListener.onClickMovieItem(clickItem,this)
         }
     } catch (e: Exception) {
         e.printStackTrace()

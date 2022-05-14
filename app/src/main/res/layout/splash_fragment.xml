@@ -21,6 +21,7 @@
             android:maxLines="1"
             android:padding="64dp"
             android:text="@string/app_name"
+            android:transitionName="TITLE_SPLASH"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

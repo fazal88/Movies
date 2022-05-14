@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.transition.TransitionInflater
 import com.androidvoyage.movies.databinding.DetailFragmentBinding
 import com.androidvoyage.movies.databinding.ListFragmentBinding
 import com.androidvoyage.movies.onClickWithAnimation
@@ -30,8 +31,12 @@ class DetailFragment : Fragment() {
         ViewModelProvider(this).get(DetailViewModel::class.java)
     }
     private lateinit var args : DetailFragmentArgs
-
     private lateinit var binding: DetailFragmentBinding
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        sharedElementEnterTransition = TransitionInflater.from(requireContext()).inflateTransition(android.R.transition.move)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
