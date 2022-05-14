@@ -2,6 +2,7 @@ package com.androidvoyage.movies.ui.list
 
 import android.os.Build
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.DiffUtil
@@ -58,9 +59,9 @@ open class MovieListAdapter(
     }
 
     open class MovieItemClickListener(
-        val clickMovieItem: (item: MovieItem?) -> Unit
+        val clickMovieItem: (item: MovieItem?, view : View?) -> Unit
     ) {
-        fun onClickMovieItem(item: MovieItem?) = clickMovieItem(item)
+        fun onClickMovieItem(item: MovieItem?, view : View?) = clickMovieItem(item,view)
     }
 
 }

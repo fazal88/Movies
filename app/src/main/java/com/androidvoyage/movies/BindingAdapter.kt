@@ -1,10 +1,15 @@
 package com.androidvoyage.movies
 
+import android.content.Context
 import android.view.View
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.androidvoyage.movies.data.model.MovieItem
+import com.androidvoyage.movies.ui.list.MovieListAdapter
 import com.bumptech.glide.Glide
 import kotlinx.coroutines.delay
 import kotlin.math.roundToInt
@@ -26,6 +31,7 @@ fun ImageView.setMoviePoster(item: String?) {
         e.printStackTrace()
     }
 }
+
 @BindingAdapter("setLikeVote")
 fun TextView.setLikeVote(item: Float?) {
     try {
@@ -66,6 +72,28 @@ fun View.setInVisible(isInvisible: Boolean?) {
     }
 }
 
+@BindingAdapter(value = ["clickItem", "clickListener"], requireAll = true)
+fun View.clickElement(clickItem: MovieItem?,clickListener : MovieListAdapter.MovieItemClickListener) {
+    try {
+        onClickWithAnimation {
+            clickListener.onClickMovieItem(clickItem,this)
+        }
+    } catch (e: Exception) {
+        e.printStackTrace()
+    }
+}
+
+@BindingAdapter("onClickWithAnimation")
+fun View.onClickWithAnimation(clickFunction: () -> Unit) {
+    this.setOnClickListener {
+        setClickedAnimation(this, object : OnClickedAnimationListener {
+            override fun onAnimationEnd() {
+                clickFunction()
+            }
+        })
+    }
+}
+
 fun setPageEndListener(recyclerView: RecyclerView, callNextPage: () -> Unit) {
     val scrollDirectionDown = 1 // Scroll down is +1, up is -1.
     recyclerView.addOnScrollListener(
@@ -80,4 +108,63 @@ fun setPageEndListener(recyclerView: RecyclerView, callNextPage: () -> Unit) {
                 }
             }
         })
+}
+
+var scaleAnimation: Animation? = null
+
+fun setClickedAnimation(view: View, onClickedAnimationListener: OnClickedAnimationListener?) {
+
+    val animation: Animation? = getScaleAnimation(view.context)
+    view.startAnimation(animation)
+
+    animation?.setAnimationListener(object : Animation.AnimationListener {
+        override fun onAnimationStart(animation: Animation) {
+
+        }
+
+        override fun onAnimationEnd(animation: Animation) {
+            onClickedAnimationListener?.onAnimationEnd()
+        }
+
+        override fun onAnimationRepeat(animation: Animation) {
+
+        }
+    })
+
+}
+
+fun getScaleAnimation(context: Context?): Animation? {
+
+    if (scaleAnimation == null) {
+        scaleAnimation = AnimationUtils.loadAnimation(context, R.anim.scale_up_down)
+    }
+
+    return scaleAnimation
+}
+
+fun View.setOnClickAnimateListener(clickListener: View.OnClickListener) {
+    this.setOnClickListener {
+        val animation: Animation? = getScaleAnimation(this.context)
+        this.startAnimation(animation)
+
+        animation?.setAnimationListener(object : Animation.AnimationListener {
+            override fun onAnimationStart(animation: Animation) {
+
+            }
+
+            override fun onAnimationEnd(animation: Animation) {
+                clickListener.onClick(this@setOnClickAnimateListener)
+            }
+
+            override fun onAnimationRepeat(animation: Animation) {
+
+            }
+        })
+    }
+
+}
+
+interface OnClickedAnimationListener {
+
+    fun onAnimationEnd()
 }

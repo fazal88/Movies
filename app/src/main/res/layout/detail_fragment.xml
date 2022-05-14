@@ -73,7 +73,6 @@
                         android:minHeight="36dp"
                         android:autoSizeMinTextSize="18sp"
                         android:layout_margin="16dp"
-                        android:textColor="@color/black"
                         android:maxLines="1"
                         android:text="@{vm.movieDetails.title}"
                         android:textStyle="bold"
@@ -88,7 +87,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:text="@{vm.movieDetails.tagline}"
-                        android:textColor="@color/black"
+
                         android:textStyle="bold"
                         android:layout_marginTop="4dp"
                         app:layout_constraintEnd_toEndOf="@+id/tv_title_movie"
@@ -103,6 +102,7 @@
                         app:cardBackgroundColor="@color/purple_200"
                         app:cardCornerRadius="8dp"
                         app:cardElevation="0dp"
+                        android:transitionName="MOVIE_POSTER"
                         app:layout_constraintDimensionRatio="2:3"
                         app:layout_constraintEnd_toEndOf="@id/guid_vert_center"
                         app:layout_constraintStart_toStartOf="parent"
@@ -124,7 +124,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:text="@{vm.movieDetails.status}"
-                        android:textColor="@color/black"
+
                         android:textSize="18sp"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toTopOf="@+id/tv_like"
@@ -138,7 +138,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:textColor="@color/black"
+
                         android:layout_marginTop="16dp"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toTopOf="@+id/tv_runtime"
@@ -153,7 +153,6 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:textColor="@color/black"
                         android:layout_marginTop="16dp"
                         android:textStyle="bold"
                         android:layout_marginEnd="16dp"
@@ -169,7 +168,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:textColor="@color/black"
+
                         android:layout_marginTop="16dp"
                         android:layout_marginEnd="16dp"
                         android:textStyle="bold"
@@ -187,7 +186,7 @@
                         android:layout_marginTop="16dp"
                         android:layout_marginEnd="16dp"
                         app:setGenre="@{vm.movieDetails.genres}"
-                        android:textColor="@color/black"
+
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="@+id/cardView"
                         app:layout_constraintStart_toStartOf="@+id/guid_vert_center"
@@ -202,7 +201,7 @@
                         android:textSize="18sp"
                         android:textStyle="bold"
                         android:layout_marginTop="16dp"
-                        android:textColor="@color/black"
+
                         app:layout_constraintStart_toStartOf="@+id/cardView"
                         app:layout_constraintTop_toBottomOf="@id/cardView" />
 
@@ -212,7 +211,7 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         android:text="@{vm.movieDetails.overview}"
-                        android:textColor="@color/black"
+
                         android:layout_marginEnd="16dp"
                         app:layout_constraintStart_toStartOf="@+id/tv_lbl_overview"
                         app:layout_constraintTop_toBottomOf="@+id/tv_lbl_overview"

@@ -6,6 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.FragmentNavigatorExtras
+import androidx.transition.TransitionInflater
+import com.androidvoyage.movies.R
 import com.androidvoyage.movies.RootActivity
 import com.androidvoyage.movies.data.model.MovieItem
 import com.androidvoyage.movies.databinding.ListFragmentBinding
@@ -30,6 +33,11 @@ class ListFragment : Fragment() {
     }
 
     private lateinit var binding: ListFragmentBinding
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        sharedElementEnterTransition = TransitionInflater.from(requireContext()).inflateTransition(android.R.transition.move)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -69,9 +77,12 @@ class ListFragment : Fragment() {
             }
         }
         viewModel.clickedMovie.observe(viewLifecycleOwner) {
-            it?.let {
+            it?.let {pair->
+                val extras = FragmentNavigatorExtras(
+                    pair.second to "MOVIE_POSTER"
+                )
                 (requireActivity() as RootActivity).getNavController()
-                    .navigate(ListFragmentDirections.actionListFragmentToDetailFragment(it))
+                    .navigate(ListFragmentDirections.actionListFragmentToDetailFragment(pair.first), navigatorExtras = extras)
                 viewModel.resetClickedMovie()
             }
         }

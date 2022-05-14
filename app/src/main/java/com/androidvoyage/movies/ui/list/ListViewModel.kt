@@ -1,5 +1,6 @@
 package com.androidvoyage.movies.ui.list
 
+import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.androidvoyage.movies.data.api.ApiHelper
@@ -24,13 +25,13 @@ class ListViewModel : ViewModel() {
     val errorMessage = MutableLiveData("")
     val isLoading = MutableLiveData(false)
     val listMovies = MutableLiveData<List<MovieItem>>()
-    val clickedMovie = MutableLiveData<MovieItem?>()
+    val clickedMovie = MutableLiveData<Pair<MovieItem, View>>()
     var pageNo = 1
 
-    val adapter = MovieListAdapter(MovieListAdapter.MovieItemClickListener {
-        it?.let {
-            clickedMovie.postValue(it)
-        }
+    val adapter = MovieListAdapter(MovieListAdapter.MovieItemClickListener { item, view ->
+       item?.let {
+           clickedMovie.postValue(Pair(item, view!!))
+       }
     })
 
     init {

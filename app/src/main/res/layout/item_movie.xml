@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="item"
             type="com.androidvoyage.movies.data.model.MovieItem" />
@@ -21,22 +22,24 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_margin="8dp"
+            app:cardBackgroundColor="@color/purple_200"
             app:cardCornerRadius="8dp"
-            android:onClick="@{()->click.onClickMovieItem(item)}"
+            android:transitionName="MOVIE_POSTER"
             app:cardElevation="0dp"
-            app:layout_constraintDimensionRatio="2:3"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="2:3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:cardBackgroundColor="@color/purple_200"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            clickItem="@{item}"
+            clickListener="@{click}">
 
             <ImageView
+                setMoviePoster="@{item.poster_path}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                setMoviePoster="@{item.poster_path}"
                 android:layout_gravity="center"
+                android:adjustViewBounds="true"
                 android:src="@mipmap/ic_launcher" />
 
         </androidx.cardview.widget.CardView>
