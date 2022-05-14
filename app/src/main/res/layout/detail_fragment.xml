@@ -83,6 +83,16 @@
                         tools:ignore="UnusedAttribute"
                         tools:text="Titanic" />
 
+                    <View
+                        setInVisible="@{!vm.isLoading()}"
+                        android:background="#d3d3d3"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        app:layout_constraintStart_toStartOf="@+id/tv_title_movie"
+                        app:layout_constraintEnd_toEndOf="@+id/tv_title_movie"
+                        app:layout_constraintTop_toTopOf="@+id/tv_title_movie"
+                        app:layout_constraintBottom_toBottomOf="@+id/tv_title_movie"/>
+
                     <TextView
                         android:id="@+id/tv_tagline"
                         android:layout_width="0dp"
@@ -95,6 +105,17 @@
                         android:text="@{vm.movieDetails.tagline}"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="parent" />
+
+                    <View
+                        setInVisible="@{!vm.isLoading()}"
+                        android:background="#d3d3d3"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        app:layout_constraintStart_toStartOf="@+id/tv_tagline"
+                        app:layout_constraintEnd_toEndOf="@+id/tv_tagline"
+                        app:layout_constraintTop_toTopOf="@+id/tv_tagline"
+                        app:layout_constraintBottom_toBottomOf="@+id/tv_tagline"/>
+
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/cardView"
@@ -119,6 +140,17 @@
 
                     </androidx.cardview.widget.CardView>
 
+                    <View
+                        setInVisible="@{!vm.isLoading()}"
+                        android:background="#d3d3d3"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        app:layout_constraintStart_toStartOf="@+id/cardView"
+                        app:layout_constraintEnd_toEndOf="@+id/cardView"
+                        app:layout_constraintTop_toTopOf="@+id/cardView"
+                        app:layout_constraintBottom_toBottomOf="@+id/cardView"/>
+
+
                     <TextView
                         android:id="@+id/tv_movie_status"
                         android:layout_width="wrap_content"
@@ -133,6 +165,17 @@
                         app:layout_constraintTop_toTopOf="@+id/cardView"
                         tools:text="Released" />
 
+                    <View
+                        setInVisible="@{!vm.isLoading()}"
+                        android:background="#d3d3d3"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        app:layout_constraintStart_toStartOf="@+id/tv_movie_status"
+                        app:layout_constraintEnd_toEndOf="@+id/tv_movie_status"
+                        app:layout_constraintTop_toTopOf="@+id/tv_movie_status"
+                        app:layout_constraintBottom_toBottomOf="@+id/tv_movie_status"/>
+
+
                     <TextView
                         android:id="@+id/tv_like"
                         app:setLikeVote="@{vm.movieDetails.vote_average}"
@@ -146,6 +189,17 @@
                         app:layout_constraintStart_toStartOf="@+id/guid_vert_center"
                         app:layout_constraintTop_toBottomOf="@+id/tv_movie_status"
                         tools:text="77%" />
+
+                    <View
+                        setInVisible="@{!vm.isLoading()}"
+                        android:background="#d3d3d3"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        app:layout_constraintStart_toStartOf="@+id/tv_like"
+                        app:layout_constraintEnd_toEndOf="@+id/tv_like"
+                        app:layout_constraintTop_toTopOf="@+id/tv_like"
+                        app:layout_constraintBottom_toBottomOf="@+id/tv_like"/>
+
 
                     <TextView
                         android:id="@+id/tv_runtime"
@@ -163,6 +217,17 @@
                         app:layout_constraintBottom_toTopOf="@+id/tv_revenue"
                         tools:text="122 Minutes" />
 
+                    <View
+                        setInVisible="@{!vm.isLoading()}"
+                        android:background="#d3d3d3"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        app:layout_constraintStart_toStartOf="@+id/tv_runtime"
+                        app:layout_constraintEnd_toEndOf="@+id/tv_runtime"
+                        app:layout_constraintTop_toTopOf="@+id/tv_runtime"
+                        app:layout_constraintBottom_toBottomOf="@+id/tv_runtime"/>
+
+
                     <TextView
                         android:id="@+id/tv_revenue"
                         android:text="@{@string/str_revenue(vm.movieDetails.revenue)}"
@@ -178,6 +243,17 @@
                         app:layout_constraintStart_toStartOf="@+id/guid_vert_center"
                         app:layout_constraintTop_toBottomOf="@+id/tv_runtime"
                         tools:text="122 Revenue" />
+
+                    <View
+                        setInVisible="@{!vm.isLoading()}"
+                        android:background="#d3d3d3"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        app:layout_constraintStart_toStartOf="@+id/tv_revenue"
+                        app:layout_constraintEnd_toEndOf="@+id/tv_revenue"
+                        app:layout_constraintTop_toTopOf="@+id/tv_revenue"
+                        app:layout_constraintBottom_toBottomOf="@+id/tv_revenue"/>
+
 
                     <TextView
                         android:id="@+id/tv_genre"
@@ -195,6 +271,17 @@
                         app:layout_constraintTop_toBottomOf="@+id/tv_revenue"
                         tools:text="Genre" />
 
+                    <View
+                        setInVisible="@{!vm.isLoading()}"
+                        android:background="#d3d3d3"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        app:layout_constraintStart_toStartOf="@+id/tv_genre"
+                        app:layout_constraintEnd_toEndOf="@+id/tv_genre"
+                        app:layout_constraintTop_toTopOf="@+id/tv_genre"
+                        app:layout_constraintBottom_toBottomOf="@+id/tv_genre"/>
+
+
                     <TextView
                         android:id="@+id/tv_lbl_overview"
                         android:layout_width="wrap_content"
@@ -207,7 +294,19 @@
                         app:layout_constraintStart_toStartOf="@+id/cardView"
                         app:layout_constraintTop_toBottomOf="@id/cardView" />
 
+                    <View
+                        setInVisible="@{!vm.isLoading()}"
+                        android:background="#d3d3d3"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        app:layout_constraintStart_toStartOf="@+id/tv_lbl_overview"
+                        app:layout_constraintEnd_toEndOf="@+id/tv_lbl_overview"
+                        app:layout_constraintTop_toTopOf="@+id/tv_lbl_overview"
+                        app:layout_constraintBottom_toBottomOf="@+id/tv_lbl_overview"/>
+
+
                     <TextView
+                        android:id="@+id/tv_overview"
                         android:layout_width="0dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -216,6 +315,17 @@
                         app:layout_constraintStart_toStartOf="@+id/tv_lbl_overview"
                         app:layout_constraintTop_toBottomOf="@+id/tv_lbl_overview"
                         android:layout_height="wrap_content"/>
+
+                    <View
+                        setInVisible="@{!vm.isLoading()}"
+                        android:background="#d3d3d3"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        app:layout_constraintStart_toStartOf="@+id/tv_overview"
+                        app:layout_constraintEnd_toEndOf="@+id/tv_overview"
+                        app:layout_constraintTop_toTopOf="@+id/tv_overview"
+                        app:layout_constraintBottom_toBottomOf="@+id/tv_overview"/>
+
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>

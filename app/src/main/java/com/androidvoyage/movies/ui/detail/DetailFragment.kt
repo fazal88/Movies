@@ -49,7 +49,6 @@ class DetailFragment : Fragment() {
         binding.ivBack.setOnClickListener { requireActivity().onBackPressed() }
 
         binding.swipeDetails.setOnRefreshListener {
-            viewModel.movieDetails.postValue(null)
             viewModel.getMovieDetail(args.movie.id)
             binding.swipeDetails.isRefreshing = false
         }

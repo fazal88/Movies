@@ -1,10 +1,12 @@
 package com.androidvoyage.movies
 
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import kotlinx.coroutines.delay
 import kotlin.math.roundToInt
 
 /**
@@ -47,6 +49,17 @@ fun TextView.setGenre(list: List<HashMap<String,String>>?) {
                 }
             }
             text = builderText
+        }
+    } catch (e: Exception) {
+        e.printStackTrace()
+    }
+}
+
+@BindingAdapter("setInVisible")
+fun View.setInVisible(isInvisible: Boolean?) {
+    try {
+        isInvisible?.let {
+            visibility = if(it) View.INVISIBLE else View.VISIBLE
         }
     } catch (e: Exception) {
         e.printStackTrace()
