@@ -9,6 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.androidvoyage.movies.databinding.DetailFragmentBinding
 import com.androidvoyage.movies.databinding.ListFragmentBinding
+import com.androidvoyage.movies.onClickWithAnimation
+import com.androidvoyage.movies.setOnClickAnimateListener
 
 
 /**
@@ -46,7 +48,7 @@ class DetailFragment : Fragment() {
     private fun initialiseViews() {
         viewModel.getMovieDetail(args.movie.id)
 
-        binding.ivBack.setOnClickListener { requireActivity().onBackPressed() }
+        binding.ivBack.onClickWithAnimation { requireActivity().onBackPressed() }
 
         binding.swipeDetails.setOnRefreshListener {
             viewModel.getMovieDetail(args.movie.id)
