@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.androidvoyage.movies.RootActivity
+import com.androidvoyage.movies.data.model.MovieItem
 import com.androidvoyage.movies.databinding.ListFragmentBinding
+import com.androidvoyage.movies.setPageEndListener
 
 
 /**
@@ -44,7 +46,14 @@ class ListFragment : Fragment() {
 
         viewModel.listMovies.observe(viewLifecycleOwner) {
             it?.let {
-                (binding.rcvMovies.adapter as MovieListAdapter).submitList(it)
+                if (it.isNotEmpty()) {
+                    val oldList = ArrayList<MovieItem>()
+                    oldList.addAll((binding.rcvMovies.adapter as MovieListAdapter).currentList)
+                    oldList.addAll(it)
+                    (binding.rcvMovies.adapter as MovieListAdapter).submitList(oldList)
+                }else{
+                    (binding.rcvMovies.adapter as MovieListAdapter).submitList(it)
+                }
             }
         }
 
@@ -65,6 +74,10 @@ class ListFragment : Fragment() {
         binding.swipeMovies.setOnRefreshListener {
             viewModel.listMovies.postValue(ArrayList())
             viewModel.getMovieList(1)
+        }
+
+        setPageEndListener(binding.rcvMovies) {
+            viewModel.getMovieList()
         }
     }
 

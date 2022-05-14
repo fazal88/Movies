@@ -32,10 +32,10 @@ class ListViewModel : ViewModel() {
     })
 
     init {
-        getMovieList()
+        getMovieList(1)
     }
 
-    fun getMovieList(page : Int = pageNo++) {
+    fun getMovieList(page : Int = pageNo.plus(1)) {
         pageNo = page
         CoroutineScope(Dispatchers.Default).launch {
             errorMessage.postValue("Loading...")

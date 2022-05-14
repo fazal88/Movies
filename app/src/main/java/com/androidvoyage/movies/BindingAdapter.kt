@@ -2,6 +2,7 @@ package com.androidvoyage.movies
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
 /**
@@ -20,4 +21,20 @@ fun ImageView.setMoviePoster(item: String?) {
     } catch (e: Exception) {
         e.printStackTrace()
     }
+}
+
+fun setPageEndListener(recyclerView: RecyclerView, callNextPage: () -> Unit) {
+    val scrollDirectionDown = 1 // Scroll down is +1, up is -1.
+    recyclerView.addOnScrollListener(
+        object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if (!recyclerView.canScrollVertically(
+                        scrollDirectionDown
+                    ) && newState == RecyclerView.SCROLL_STATE_IDLE
+                ) {
+                    callNextPage()
+                }
+            }
+        })
 }
