@@ -38,12 +38,22 @@ class ListFragment : Fragment() {
         binding = ListFragmentBinding.inflate(inflater, container, false)
         binding.vm = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
+        initialiseViews()
         setObservers()
         return binding.root
     }
 
-    private fun setObservers() {
+    private fun initialiseViews() {
+        binding.swipeMovies.setOnRefreshListener {
+            viewModel.listMovies.postValue(ArrayList())
+            viewModel.getMovieList(1)
+        }
+        setPageEndListener(binding.rcvMovies) {
+            viewModel.getMovieList()
+        }
+    }
 
+    private fun setObservers() {
         viewModel.listMovies.observe(viewLifecycleOwner) {
             it?.let {
                 if (it.isNotEmpty()) {
@@ -56,7 +66,6 @@ class ListFragment : Fragment() {
                 }
             }
         }
-
         viewModel.clickedMovie.observe(viewLifecycleOwner) {
             it?.let {
                 (requireActivity() as RootActivity).getNavController()
@@ -64,18 +73,10 @@ class ListFragment : Fragment() {
                 viewModel.resetClickedMovie()
             }
         }
-        viewModel.errorMessage.observe(viewLifecycleOwner) {
+        viewModel.isLoading.observe(viewLifecycleOwner) {
             it?.let {
-                binding.swipeMovies.isRefreshing = it.isNotEmpty()
+                binding.swipeMovies.isRefreshing = it
             }
-        }
-        binding.swipeMovies.setOnRefreshListener {
-            viewModel.listMovies.postValue(ArrayList())
-            viewModel.getMovieList(1)
-        }
-
-        setPageEndListener(binding.rcvMovies) {
-            viewModel.getMovieList()
         }
     }
 

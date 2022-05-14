@@ -8,6 +8,7 @@ import com.androidvoyage.movies.data.model.MovieItem
 import com.androidvoyage.movies.data.repository.MovieRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 
@@ -21,6 +22,7 @@ class ListViewModel : ViewModel() {
     val movieRepository = MovieRepository(ApiHelper(RetrofitBuilder.apiService))
 
     val errorMessage = MutableLiveData("")
+    val isLoading = MutableLiveData(false)
     val listMovies = MutableLiveData<List<MovieItem>>()
     val clickedMovie = MutableLiveData<MovieItem?>()
     var pageNo = 1
@@ -37,18 +39,22 @@ class ListViewModel : ViewModel() {
 
     fun getMovieList(page : Int = pageNo.plus(1)) {
         pageNo = page
-        CoroutineScope(Dispatchers.Default).launch {
+        CoroutineScope(Dispatchers.IO).launch {
+            isLoading.postValue(true)
             errorMessage.postValue("Loading...")
             try {
                 val response = movieRepository.getMovieList(page)
+                delay(2000)
                 listMovies.postValue(response.results)
                 if (response.results.isEmpty()) {
                     errorMessage.postValue("No Data Found.")
                 } else {
                     errorMessage.postValue("")
                 }
+                isLoading.postValue(false)
             } catch (exception: Exception) {
                 errorMessage.postValue(exception.message ?: "Error Occurred!")
+                isLoading.postValue(false)
             }
         }
     }

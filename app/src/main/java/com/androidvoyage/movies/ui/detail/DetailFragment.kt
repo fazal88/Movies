@@ -27,6 +27,7 @@ class DetailFragment : Fragment() {
     private val viewModel: DetailViewModel by lazy {
         ViewModelProvider(this).get(DetailViewModel::class.java)
     }
+    private lateinit var args : DetailFragmentArgs
 
     private lateinit var binding: DetailFragmentBinding
 
@@ -35,12 +36,23 @@ class DetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = DetailFragmentBinding.inflate(inflater, container, false)
-        setObservers()
+        args = arguments?.let { DetailFragmentArgs.fromBundle(it) }!!
+        binding.vm= viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
+        initialiseViews()
         return binding.root
     }
 
-    private fun setObservers() {
+    private fun initialiseViews() {
+        viewModel.getMovieDetail(args.movie.id)
 
+        binding.ivBack.setOnClickListener { requireActivity().onBackPressed() }
+
+        binding.swipeDetails.setOnRefreshListener {
+            viewModel.movieDetails.postValue(null)
+            viewModel.getMovieDetail(args.movie.id)
+            binding.swipeDetails.isRefreshing = false
+        }
     }
 
 }

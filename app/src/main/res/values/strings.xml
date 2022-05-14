@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Movies</string>
     <string name="str_movie_detail">Movie Detail</string>
+    <string name="str_overview">Overview</string>
+    <string name="str_runtime">Runtime\n%s Minutes</string>
+    <string name="str_revenue">Revenue\n$ %s</string>
 </resources>

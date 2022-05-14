@@ -11,7 +11,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class MovieItem(
     val adult: Boolean,
-    val id: String,
+    val id: Long,
     val original_language: String,
     val original_title: String,
     val overview: String,

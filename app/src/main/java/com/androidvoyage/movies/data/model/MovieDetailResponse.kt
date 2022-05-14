@@ -2,6 +2,7 @@ package com.androidvoyage.movies.data.model
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
+import kotlin.math.roundToInt
 
 
 /**
