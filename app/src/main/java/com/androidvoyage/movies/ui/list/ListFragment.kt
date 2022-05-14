@@ -47,26 +47,30 @@ class ListFragment : Fragment() {
 
     private fun setObservers() {
 
-        binding.rcvMovies.adapter = MovieListAdapter(MovieListAdapter.MovieItemClickListener {
+        viewModel.listMovies.observe(viewLifecycleOwner){
+            it?.let {
+                (binding.rcvMovies.adapter as MovieListAdapter).submitList(it)
+            }
+        }
+
+        viewModel.clickedMovie.observe(viewLifecycleOwner){
             it?.let {
                 (requireActivity() as RootActivity).getNavController()
                     .navigate(ListFragmentDirections.actionListFragmentToDetailFragment(it))
+                viewModel.resetClickedMovie()
             }
-        })
+        }
 
 
-        viewModel.getMovieList().observe(viewLifecycleOwner, Observer {
+
+
+        /*viewModel.getMovieList().observe(viewLifecycleOwner, Observer {
             it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
                         resource.data?.let { response ->
                             Log.d("RootActivity -> List", "SUCCESS: $response")
-                            (binding.rcvMovies.adapter as MovieListAdapter).submitList(response.results)
-                            if(response.results.isEmpty()){
-                                viewModel.errorMessage.postValue("No Data Found.")
-                            }else{
-                                viewModel.errorMessage.postValue("")
-                            }
+
                         }
                     }
                     Status.ERROR -> {
@@ -79,7 +83,7 @@ class ListFragment : Fragment() {
                     }
                 }
             }
-        })
+        })*/
     }
 
 }

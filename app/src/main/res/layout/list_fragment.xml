@@ -66,6 +66,7 @@
                 android:paddingBottom="64dp"
                 android:clipToPadding="false"
                 tools:itemCount="13"
+                android:adapter="@{vm.adapter}"
                 tools:listitem="@layout/item_movie"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:spanCount="2"

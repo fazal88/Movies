@@ -2,13 +2,13 @@ package com.androidvoyage.movies.ui.list
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
 import com.androidvoyage.movies.data.api.ApiHelper
 import com.androidvoyage.movies.data.api.RetrofitBuilder
+import com.androidvoyage.movies.data.model.MovieItem
 import com.androidvoyage.movies.data.repository.MovieRepository
-import com.androidvoyage.movies.utils.Resource
-import com.androidvoyage.movies.utils.Status
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 /**
@@ -21,13 +21,37 @@ class ListViewModel : ViewModel() {
     val movieRepository = MovieRepository(ApiHelper(RetrofitBuilder.apiService))
 
     val errorMessage = MutableLiveData("")
+    val listMovies = MutableLiveData<List<MovieItem>>()
+    val clickedMovie = MutableLiveData<MovieItem?>()
 
-    fun getMovieList() = liveData(Dispatchers.IO) {
-        emit(Resource.loading(data = null))
-        try {
-            emit(Resource.success(data = movieRepository.getMovieList(1)))
-        } catch (exception: Exception) {
-            emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
+    val adapter = MovieListAdapter(MovieListAdapter.MovieItemClickListener {
+        it?.let {
+            clickedMovie.postValue(it)
         }
+    })
+
+    init {
+        getMovieList()
+    }
+
+    private fun getMovieList() {
+        errorMessage.postValue("Loading...")
+        try {
+            CoroutineScope(Dispatchers.Default).launch {
+                val response = movieRepository.getMovieList(1)
+                listMovies.postValue(response.results)
+                if (response.results.isEmpty()) {
+                    errorMessage.postValue("No Data Found.")
+                } else {
+                    errorMessage.postValue("")
+                }
+            }
+        } catch (exception: Exception) {
+            errorMessage.postValue(exception.message ?: "Error Occurred!")
+        }
+    }
+
+    fun resetClickedMovie() {
+        clickedMovie.postValue(null)
     }
 }
