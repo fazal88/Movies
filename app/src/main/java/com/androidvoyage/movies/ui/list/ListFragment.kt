@@ -56,13 +56,15 @@ class ListFragment : Fragment() {
     private fun setObservers() {
         viewModel.listMovies.observe(viewLifecycleOwner) {
             it?.let {
-                if (it.isNotEmpty()) {
-                    val oldList = ArrayList<MovieItem>()
-                    oldList.addAll((binding.rcvMovies.adapter as MovieListAdapter).currentList)
-                    oldList.addAll(it)
-                    (binding.rcvMovies.adapter as MovieListAdapter).submitList(oldList)
-                }else{
-                    (binding.rcvMovies.adapter as MovieListAdapter).submitList(it)
+                if (viewModel.isLoading.value!!) {
+                    if (it.isNotEmpty()) {
+                        val oldList = ArrayList<MovieItem>()
+                        oldList.addAll((binding.rcvMovies.adapter as MovieListAdapter).currentList)
+                        oldList.addAll(it)
+                        (binding.rcvMovies.adapter as MovieListAdapter).submitList(oldList)
+                    }else{
+                        (binding.rcvMovies.adapter as MovieListAdapter).submitList(it)
+                    }
                 }
             }
         }
